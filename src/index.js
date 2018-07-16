@@ -1,9 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { injectGlobal } from 'styled-components';
 
 import store from './store';
 import App from './components/App';
+
+injectGlobal`
+  body {
+    font-family: 'Roboto';
+  }
+`;
 
 render(
   <Provider store={store}>
