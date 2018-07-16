@@ -9,6 +9,7 @@ import App from './components/App';
 injectGlobal`
   body {
     font-family: 'Roboto';
+    font-size: 14px;
   }
 `;
 

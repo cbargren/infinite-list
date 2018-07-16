@@ -8,7 +8,7 @@ const Row = styled.div`
 const Cell = styled.span`
   flex: 0 0 ${({ width = '30px' }) => width};
   display: flex;
-  padding: 5px;
+  padding: 10px;
 `;
 
 const HeaderRow = styled(Row)`
@@ -19,13 +19,16 @@ const HeaderRow = styled(Row)`
 const HeaderCell = styled(Cell)``;
 
 const Table = styled.div`
-  max-height: 350px;
-  overflow: scroll;
   border: 2px solid rgba(30, 66, 96, 0.8);
 
   ${Row}:nth-child(even) {
     background-color: rgba(150, 198, 255, 0.5);
   }
+`;
+
+const TableBody = styled.div`
+  max-height: 350px;
+  overflow: scroll;
 `;
 
 const TypeCell = styled.span`
@@ -37,6 +40,15 @@ const TypeCell = styled.span`
     ::before {
       content: '';
     }
+  }
+`;
+
+const Placeholder = styled.div`
+  width: 100px;
+  background-color: rgba(200, 200, 200, 1);
+  display: inline-block;
+  ::before {
+    content: '\00a0';
   }
 `;
 
@@ -53,22 +65,30 @@ export default class extends Component {
           <HeaderCell>ID</HeaderCell>
           <HeaderCell width={'120px'}>Name</HeaderCell>
           <HeaderCell width={'120px'}>Type</HeaderCell>
+          <HeaderCell width={'80px'}>Height</HeaderCell>
+          <HeaderCell width={'80px'}>Weight</HeaderCell>
         </HeaderRow>
-        {pokemon.map(p => (
-          <Row>
-            {p === 'LOADING' ? (
-              '...'
-            ) : (
-              <Fragment>
-                <Cell>{p.national_id}</Cell>
-                <Cell width={'120px'}>{p.name}</Cell>
-                <Cell width={'120px'}>
-                  {p.types.map(t => <TypeCell>{t.name}</TypeCell>)}
+        <TableBody>
+          {pokemon.map(p => (
+            <Row>
+              {p === 'LOADING' ? (
+                <Cell>
+                  <Placeholder />
                 </Cell>
-              </Fragment>
-            )}
-          </Row>
-        ))}
+              ) : (
+                <Fragment>
+                  <Cell>{p.national_id}</Cell>
+                  <Cell width={'120px'}>{p.name}</Cell>
+                  <Cell width={'120px'}>
+                    {p.types.map(t => <TypeCell>{t.name}</TypeCell>)}
+                  </Cell>
+                  <Cell width={'80px'}>{p.height / 10}m</Cell>
+                  <Cell width={'80px'}>{p.weight / 10}kg</Cell>
+                </Fragment>
+              )}
+            </Row>
+          ))}
+        </TableBody>
       </Table>
     );
   }
