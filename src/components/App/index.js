@@ -1,7 +1,10 @@
 import React from 'react';
 
-export const App = () => (
+import PokemonList from '../../containers/PokemonList';
+
+export default () => (
   <div>
     <h1>Pokédex</h1>
+    <PokemonList />
   </div>
 );
