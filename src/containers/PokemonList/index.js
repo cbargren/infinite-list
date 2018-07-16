@@ -11,11 +11,13 @@ const getOrderedListByIndex = fp.pipe(
 );
 
 const mapStateToProps = state => ({
+  isFetching: state.pokemon.isFetching,
   pokemon: getOrderedListByIndex(state.pokemon.pokemonByIndex)
 });
 
 const mapDispatchToProps = dispatch => ({
-  onInit: () => dispatch(loadPage())
+  onInit: () => dispatch(loadPage()),
+  fetchMore: () => dispatch(loadPage())
 });
 
 export default connect(

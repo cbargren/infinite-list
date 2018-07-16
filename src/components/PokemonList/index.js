@@ -53,14 +53,27 @@ const Placeholder = styled.div`
 `;
 
 export default class extends Component {
+  constructor() {
+    super();
+    this.handleScroll = this.handleScroll.bind(this);
+  }
   componentDidMount() {
     this.props.onInit();
+  }
+
+  handleScroll(e) {
+    const { isFetching, fetchMore } = this.props;
+    const scrollBottom = e.target.scrollTop + e.target.offsetHeight;
+    const scrollBottomOffset = e.target.scrollHeight - scrollBottom;
+    if (scrollBottomOffset <= 25 && !isFetching) {
+      fetchMore();
+    }
   }
 
   render() {
     const { pokemon } = this.props;
     return (
-      <Table>
+      <Table onScroll={this.handleScroll}>
         <HeaderRow>
           <HeaderCell>ID</HeaderCell>
           <HeaderCell width={'120px'}>Name</HeaderCell>

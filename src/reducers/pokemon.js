@@ -3,6 +3,7 @@ import fp from 'lodash/fp';
 import { loadPageStarted, loadPageSucceeded } from '../actions/pokemon';
 
 const init = () => ({
+  isFetching: false,
   pokemonByIndex: {}
 });
 
@@ -16,6 +17,7 @@ export default (state = init(), action) => {
       )(fp.range(start, end));
       return {
         ...state,
+        isFetching: true,
         pokemonByIndex: {
           ...updates,
           ...state.pokemonByIndex
@@ -30,6 +32,7 @@ export default (state = init(), action) => {
       )(fp.range(start, end));
       return {
         ...state,
+        isFetching: false,
         pokemonByIndex: {
           ...state.pokemonByIndex,
           ...updates
