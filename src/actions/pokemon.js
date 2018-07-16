@@ -21,9 +21,7 @@ export const loadPage = () => (dispatch, getState) => {
   const start = fp.values(pokemonByIndex).length;
   const end = start + PAGE_SIZE;
   dispatch(loadPageStarted(start, end));
-  fetch(`${API_URL}/pokemon/?limit=${end - start}&offset=${start}`, {
-    cache: 'force-cache'
-  })
+  fetch(`${API_URL}/pokemon/?limit=${end - start}&offset=${start}`)
     .then(response => response.json())
     .then(data => {
       dispatch(loadPageSucceeded(data.objects, start, end));
